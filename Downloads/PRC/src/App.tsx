@@ -53,15 +53,15 @@ const App: React.FC = () => {
   );
 
   const handleClick = (clientX: number, clientY: number, rect: DOMRect): void => {
-    if (energy < 1) {
-      return; // Return early if energy is not sufficient
+    if (energy < pointsPerTap) {
+      return; // Return early if energy is not sufficient for points per tap
     }
 
     const x: number = clientX - rect.left;
     const y: number = clientY - rect.top;
 
     setPoints((prevPoints) => prevPoints + pointsPerTap);
-    setEnergy((prevEnergy) => prevEnergy - 1);
+    setEnergy((prevEnergy) => prevEnergy - pointsPerTap); // Reduce energy by pointsPerTap
     setClicks((prevClicks) => [
       ...prevClicks,
       { id: Date.now(), x, y },
@@ -192,7 +192,9 @@ const App: React.FC = () => {
             setEnergyExtent={setEnergyLimit}
             points={points}
             setPoints={setPoints}
-            setPointsPerTap={setPointsPerTap} pointsPerTap={0}          />
+            setPointsPerTap={setPointsPerTap}
+            pointsPerTap={pointsPerTap}
+          />
         </div>
       )}
 
@@ -201,9 +203,7 @@ const App: React.FC = () => {
           <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg">
             Back
           </button>
-          <FrensPage handleBack={function (): void {
-            throw new Error('Function not implemented.');
-          } } />
+          <FrensPage handleBack={handleBack} />
         </div>
       )}
     </div>

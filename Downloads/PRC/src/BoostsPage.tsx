@@ -60,16 +60,16 @@ const BoostsPage: React.FC<BoostsPageProps> = ({
     <div className="boosts-page-container">
       <h2 className="boosts-page-title">Boosts Page</h2>
       <div className="cards">
-        <div 
-          className={`card ${points < upgradeCosts.energyExtent ? 'disabled' : 'green'}`} 
+        <div
+          className={`card ${points < upgradeCosts.energyExtent ? 'disabled' : 'green'}`}
           onClick={handleUpgradeEnergyExtent}
         >
           <p className="tip">Upgrade Energy Limit</p>
           <p className="second-text">Current: {energyExtent}</p>
           <p className="cost">Cost: {upgradeCosts.energyExtent} points</p>
         </div>
-        <div 
-          className={`card ${points < upgradeCosts.pointsPerTap ? 'disabled' : 'blue'}`} 
+        <div
+          className={`card ${points < upgradeCosts.pointsPerTap ? 'disabled' : 'blue'}`}
           onClick={handleUpgradePointsPerTap}
         >
           <p className="tip">Upgrade Points Per Tap</p>
