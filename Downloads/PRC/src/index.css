@@ -35,3 +35,28 @@ body {
   height: 100%;
   background: radial-gradient(circle, #2C5364 0%, rgba(250, 214, 92, 0) 60%);
 }
+.pc-restriction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #061823;
+  color: #ffffff;
+}
+
+.pc-restriction h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pc-restriction p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pc-restriction canvas {
+  width: 200px !important;
+  height: 200px !important;
+}

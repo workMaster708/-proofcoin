@@ -6,6 +6,7 @@ import Rank from './Rank';
 import BoostsPage from './BoostsPage';
 import FrensPage from './FrensPage';
 import Loader from './Loader'; // Import Loader component
+import QRCode from 'qrcode.react'; // Import QRCode component
 
 const App: React.FC = () => {
   const [points, setPoints] = useState<number>(0);
@@ -92,6 +93,18 @@ const App: React.FC = () => {
   const handleBack = () => {
     setCurrentPage('main');
   };
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    return (
+      <div className="pc-restriction">
+        <h1>Mobile gaming is best</h1>
+        <p>Please access this app on your mobile device.</p>
+        <QRCode value="https://t.me/proofcoin_bot/PROOFCOIN" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-main min-h-screen px-4 flex flex-col items-center text-white font-medium">
