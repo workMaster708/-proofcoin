@@ -217,6 +217,16 @@ const App: React.FC = () => {
             Back
           </button>
           <FrensPage handleBack={handleBack} />
+          <div className="w-full max-w-xs mt-4">
+            <h2 className="text-lg font-bold mb-2">Share Your Referral Link</h2>
+            <input
+              type="text"
+              readOnly
+              value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME"
+              className="w-full px-3 py-2 rounded-md bg-gray-700 text-white"
+            />
+            <QRCode value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME" />
+          </div>
         </div>
       )}
     </div>

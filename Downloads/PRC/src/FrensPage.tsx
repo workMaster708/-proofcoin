@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { bear } from './images';
 
 interface FrensPageProps {
@@ -8,13 +8,35 @@ interface FrensPageProps {
 const FrensPage: React.FC<FrensPageProps> = ({ handleBack }) => {
   const [referralLink, setReferralLink] = useState<string>('');
 
-  // Fetch referral link from backend
+  useEffect(() => {
+    // Fetch referral link for the current user on component mount
+    const fetchReferralLink = async () => {
+      try {
+        const userId = 'currentUserId'; // Replace with actual user ID logic
+        const response = await fetch(`/api/referrals/${userId}`);
+        const data = await response.json();
+        setReferralLink(`${window.location.origin}/referral?code=${data.referralCode}`);
+      } catch (error) {
+        console.error('Error fetching referral link:', error);
+      }
+    };
+
+    fetchReferralLink();
+  }, []);
+
+  // Generate a referral link (replace with your actual link generation logic)
   const generateReferralLink = async () => {
     try {
-      const userId = 'currentUserId'; // Replace with logic to get the actual user ID
-      const response = await fetch(`/api/users/referral-link/${userId}`);
+      const userId = 'currentUserId'; // Replace with actual user ID logic
+      const response = await fetch('/api/referrals/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
       const data = await response.json();
-      setReferralLink(data.referralLink);
+      setReferralLink(`${window.location.origin}/referral?code=${data.referralCode}`);
     } catch (error) {
       console.error('Error generating referral link:', error);
     }
