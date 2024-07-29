@@ -1,95 +1,81 @@
-/* Container Styling */
 .boosts-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #1f2937; /* Dark background for contrast */
-  min-height: 100vh; /* Full viewport height */
-}
-
-/* Page Title Styling */
-.boosts-page-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #ffffff; /* White text for better contrast */
-}
-
-/* Cards Container */
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  max-width: 600px;
-}
-
-/* Card Styles */
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100px;
-  width: 250px;
-  border-radius: 10px;
-  color: #ffffff; /* White text for readability */
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-}
-
-/* Card Color Variants */
-.card.green {
-  background-color: #22c55e; /* Green */
-}
-
-.card.blue {
-  background-color: #3b82f6; /* Blue */
-}
-
-.card.disabled {
-  background-color: #e5e7eb; /* Light gray */
-  color: #9ca3af; /* Darker gray */
-  cursor: not-allowed;
-}
-
-/* Card Text Styling */
-.card p.tip {
-  font-size: 1em;
-  font-weight: 700;
-}
-
-.card p.second-text {
-  font-size: 0.75em; /* Slightly smaller for consistency */
-  color: #e5e7eb; /* Light gray text */
-}
-
-.card p.cost {
-  font-size: 0.8em;
-  margin-top: 10px;
-}
-
-/* Card Hover Effects */
-.card:hover {
-  transform: scale(1.05); /* Slightly smaller scale for smoother effect */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff; /* Keep text color white */
-}
-
-/* Non-Hovered Cards Blur Effect */
-.cards:hover > .card:not(:hover) {
-  filter: blur(6px); /* Less blur for a cleaner look */
-  transform: scale(0.95); /* Slightly smaller scale for better transition */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Current Points Display */
-.current-points {
-  font-size: 1.2rem;
-  margin-top: 20px;
-  color: #ffffff; /* White text for better readability */
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .boosts-page-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms transform, 400ms box-shadow, 400ms background-color;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card.green {
+    background-color: #22c55e;
+  }
+  
+  .card.blue {
+    background-color: #3b82f6;
+  }
+  
+  .card.disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  .card p.tip {
+    font-size: 1em;
+    font-weight: 700;
+  }
+  
+  .card p.second-text {
+    font-size: 0.7em;
+  }
+  
+  .card p.cost {
+    font-size: 0.8em;
+    margin-top: 10px;
+  }
+  
+  .card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #333;
+  }
+  
+  .cards:hover > .card:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.9);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .current-points {
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
