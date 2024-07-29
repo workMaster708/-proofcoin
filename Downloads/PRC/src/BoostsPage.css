@@ -1,30 +1,47 @@
-/* Container Styling */
-.boosts-page-container {
+/* boosts-page.css */
+.flex {
   display: flex;
+}
+
+.flex-col {
   flex-direction: column;
+}
+
+.align-items-center {
   align-items: center;
+}
+
+.padding-20 {
   padding: 20px;
-  background-color: #1f2937; /* Dark background for contrast */
-  min-height: 100vh; /* Full viewport height */
 }
 
-/* Page Title Styling */
-.boosts-page-title {
+.bg-gray-800 {
+  background-color: #1f2937;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-2xl {
   font-size: 2rem;
-  margin-bottom: 20px;
-  color: #ffffff; /* White text for better contrast */
 }
 
-/* Cards Container */
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.max-w-600 {
+  max-width: 600px;
+}
+
 .cards {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  max-width: 600px;
 }
 
-/* Card Styles */
 .card {
   display: flex;
   flex-direction: column;
@@ -34,37 +51,35 @@
   height: 100px;
   width: 250px;
   border-radius: 10px;
-  color: #ffffff; /* White text for readability */
+  color: #ffffff;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 15px;
 }
 
-/* Card Color Variants */
 .card.green {
-  background-color: #22c55e; /* Green */
+  background-color: #22c55e;
 }
 
 .card.blue {
-  background-color: #3b82f6; /* Blue */
+  background-color: #3b82f6;
 }
 
 .card.disabled {
-  background-color: #e5e7eb; /* Light gray */
-  color: #9ca3af; /* Darker gray */
+  background-color: #e5e7eb;
+  color: #9ca3af;
   cursor: not-allowed;
 }
 
-/* Card Text Styling */
 .card p.tip {
   font-size: 1em;
   font-weight: 700;
 }
 
 .card p.second-text {
-  font-size: 0.75em; /* Slightly smaller for consistency */
-  color: #e5e7eb; /* Light gray text */
+  font-size: 0.75em;
+  color: #e5e7eb;
 }
 
 .card p.cost {
@@ -72,24 +87,21 @@
   margin-top: 10px;
 }
 
-/* Card Hover Effects */
 .card:hover {
-  transform: scale(1.05); /* Slightly smaller scale for smoother effect */
+  transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff; /* Keep text color white */
+  color: #ffffff;
 }
 
-/* Non-Hovered Cards Blur Effect */
 .cards:hover > .card:not(:hover) {
-  filter: blur(6px); /* Less blur for a cleaner look */
-  transform: scale(0.95); /* Slightly smaller scale for better transition */
+  filter: blur(6px);
+  transform: scale(0.95);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Current Points Display */
 .current-points {
   font-size: 1.2rem;
   margin-top: 20px;
-  color: #ffffff; /* White text for better readability */
+  color: #ffffff;
 }
