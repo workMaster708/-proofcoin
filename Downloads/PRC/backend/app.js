@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
+const referralRoutes = require('./routes/referralRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/referrals', referralRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {

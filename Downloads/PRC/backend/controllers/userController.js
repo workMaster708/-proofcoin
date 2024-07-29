@@ -31,7 +31,19 @@ const updateUserPoints = async (req, res) => {
   }
 };
 
+const generateReferralLink = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const baseUrl = process.env.BASE_URL || 'http://localhost:3000'; // Replace with your frontend URL
+    const referralLink = `${baseUrl}/referral?user=${userId}`;
+    res.json({ referralLink });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to generate referral link' });
+  }
+};
+
 module.exports = {
   getUserData,
-  updateUserPoints
+  updateUserPoints,
+  generateReferralLink // Export the function
 };

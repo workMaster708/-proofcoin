@@ -29,4 +29,16 @@ router.put('/:username', async (req, res) => {
   }
 });
 
+// Generate referral link
+router.get('/referral-link/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const baseUrl = process.env.BASE_URL || 'http://localhost:3000'; // Replace with your frontend URL
+    const referralLink = `${baseUrl}/referral?user=${userId}`;
+    res.json({ referralLink });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate referral link' });
+  }
+});
+
 module.exports = router;
