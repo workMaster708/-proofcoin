@@ -16,6 +16,7 @@ const App: React.FC = () => {
   const [pointsPerTap, setPointsPerTap] = useState<number>(1);
   const [energyLimit, setEnergyLimit] = useState<number>(500);
   const [loading, setLoading] = useState<boolean>(false); // State for loader
+  const [referralLink, setReferralLink] = useState<string>(''); // State for referral link
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +26,19 @@ const App: React.FC = () => {
         const data = await response.json();
         setPoints(data.points);
         setEnergy(data.energy);
+
+        // Generate referral link for the current user
+        const userId = data.userId; // Adjust this if necessary
+        const referralResponse = await fetch(`/api/referrals/${userId}`);
+        const referralData = await referralResponse.json();
+        setReferralLink(`https://t.me/proofcoin_bot/referral?user=${referralData.referralCode}`);
       } catch (error) {
         console.error('Error fetching user data:', error);
       } finally {
         setLoading(false); // Hide loader
       }
     };
+
     fetchData();
   }, []);
 
@@ -101,7 +109,7 @@ const App: React.FC = () => {
       <div className="pc-restriction">
         <h1>Mobile gaming is best</h1>
         <p>Please access this app on your mobile device.</p>
-        <QRCode value="https://t.me/proofcoin_bot/PROOFCOIN" />
+        <QRCode value="https://t.me/proofcoin_bot" />
       </div>
     );
   }
@@ -222,11 +230,9 @@ const App: React.FC = () => {
             <input
               type="text"
               readOnly
-              value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME"
+              value={referralLink}
               className="w-full px-3 py-2 rounded-md bg-gray-700 text-white"
-            />
-            <QRCode value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME" />
-          </div>
+            /></div>
         </div>
       )}
     </div>
