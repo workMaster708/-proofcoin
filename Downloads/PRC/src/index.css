@@ -185,12 +185,3 @@ body {
   margin-top: 20px;
   color: #ffffff;
 }
-
-.existing-back-button {
-  /* Add styles here for the back button */
-  background-color: #2f5a69;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  /* Add other styles as needed */
-}
