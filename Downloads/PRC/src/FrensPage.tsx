@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { bear } from './images';
+import './FrensPage.css'; // Import the CSS file
 
 interface FrensPageProps {
   handleBack: () => void;
@@ -34,40 +35,34 @@ const FrensPage: React.FC<FrensPageProps> = ({ handleBack }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-800 p-4">
-      <h1 className="text-3xl font-bold mb-6 text-white">Frens Page</h1>
-      <div className="flex items-center gap-3 mb-6">
-        <img src={bear} width={40} height={40} alt="bear" />
+    <div className="frens-page">
+      <h1>Frens Page</h1>
+      <div className="bear-icon">
+        <img src={bear} alt="bear" />
       </div>
-      <div className="w-full max-w-md bg-gray-700 p-5 rounded-lg mb-6">
+      <div className="referral-container">
         {referralLink && (
           <div className="flex flex-col items-center mb-4">
-            <p className="text-white text-center mb-3 break-all">{referralLink}</p>
-            <button
-              onClick={copyToClipboard}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-            >
+            <p>{referralLink}</p>
+            <button onClick={copyToClipboard} className="custom-btn btn-1">
               Copy Referral Link
             </button>
           </div>
         )}
       </div>
-      <div className="w-full max-w-md bg-gray-700 p-5 rounded-lg">
-        <h2 className="text-xl font-bold text-white mb-3">People Referred</h2>
+      <div className="referrals-list">
+        <h2>People Referred</h2>
         {referrals.length > 0 ? (
-          <ul className="list-disc list-inside text-white">
+          <ul>
             {referrals.map((referral, index) => (
               <li key={index}>{referral}</li>
             ))}
           </ul>
         ) : (
-          <p className="text-white">No referrals yet.</p>
+          <p>No referrals yet.</p>
         )}
       </div>
-      <button
-        onClick={handleBack}
-        className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-      >
+      <button onClick={handleBack} className="custom-btn btn-1">
         Go Back
       </button>
     </div>
