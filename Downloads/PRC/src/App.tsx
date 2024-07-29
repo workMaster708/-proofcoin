@@ -205,7 +205,7 @@ const App: React.FC = () => {
 
       {currentPage === 'boosts' && (
         <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg">
+          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg existing-back-button">
             Back
           </button>
           <BoostsPage
@@ -221,7 +221,7 @@ const App: React.FC = () => {
 
       {currentPage === 'frens' && (
         <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg">
+          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg existing-back-button">
             Back
           </button>
           <FrensPage handleBack={handleBack} />
@@ -232,7 +232,8 @@ const App: React.FC = () => {
               readOnly
               value={referralLink}
               className="w-full px-3 py-2 rounded-md bg-gray-700 text-white"
-            /></div>
+            />
+          </div>
         </div>
       )}
     </div>

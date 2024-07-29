@@ -1,3 +1,4 @@
+/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +6,7 @@
 body {
   font-family: sans-serif;
 }
+
 .float-animation {
   animation: float 2s ease-out;
   animation-fill-mode: forwards; /* Ensures the animation does not reset */
@@ -35,6 +37,7 @@ body {
   height: 100%;
   background: radial-gradient(circle, #2C5364 0%, rgba(250, 214, 92, 0) 60%);
 }
+
 .pc-restriction {
   display: flex;
   flex-direction: column;
@@ -59,4 +62,135 @@ body {
 .pc-restriction canvas {
   width: 200px !important;
   height: 200px !important;
+}
+
+/* FrensPage styles */
+.frens-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #1f2937; /* Dark background color */
+  color: #ffffff; /* White text color */
+}
+
+.frens-page-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.referral-link-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: #374151; /* Dark gray background */
+  padding: 20px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.referral-link-container p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.copy-button {
+  @apply custom-btn btn-1;
+}
+
+/* BoostsPage styles */
+.boosts-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #1f2937; /* Dark background color */
+  color: #ffffff; /* White text color */
+}
+
+.boosts-page-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100px;
+  width: 250px;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+}
+
+.card.green {
+  background-color: #22c55e;
+}
+
+.card.blue {
+  background-color: #3b82f6;
+}
+
+.card.disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.card p.tip {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.card p.second-text {
+  font-size: 0.75em;
+}
+
+.card p.cost {
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(6px);
+  transform: scale(0.95);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.current-points {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.existing-back-button {
+  /* Add styles here for the back button */
+  background-color: #2f5a69;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  /* Add other styles as needed */
 }
