@@ -6,7 +6,7 @@ interface FrensPageProps {
   handleBack: () => void;
 }
 
-const FrensPage: React.FC<FrensPageProps> = ({ }) => {
+const FrensPage: React.FC<FrensPageProps> = ({ handleBack }) => {
   const [referralLink, setReferralLink] = useState<string>('');
   const [referrals, setReferrals] = useState<string[]>([]); // State for list of referrals
 
@@ -61,7 +61,11 @@ const FrensPage: React.FC<FrensPageProps> = ({ }) => {
         ) : (
           <p>No referrals yet.</p>
         )}
-      </div></div>
+      </div>
+      <button onClick={handleBack} className="custom-btn btn-1">
+        Go Back
+      </button>
+    </div>
   );
 };
 

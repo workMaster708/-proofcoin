@@ -1,16 +1,38 @@
 /* boosts-page.css */
-.boosts-page-container {
+.flex {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #1f2937; /* Dark background color */
-  color: #ffffff; /* White text color */
 }
 
-.boosts-page-title {
+.flex-col {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.bg-gray-800 {
+  background-color: #1f2937;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-2xl {
   font-size: 2rem;
+}
+
+.mb-20 {
   margin-bottom: 20px;
+}
+
+.max-w-600 {
+  max-width: 600px;
 }
 
 .cards {
@@ -18,7 +40,6 @@
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  max-width: 600px;
 }
 
 .card {
@@ -58,6 +79,7 @@
 
 .card p.second-text {
   font-size: 0.75em;
+  color: #e5e7eb;
 }
 
 .card p.cost {
