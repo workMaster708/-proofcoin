@@ -705,7 +705,11 @@ ansi-styles@^3.2.1:
     color-convert "^1.9.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ansi-styles@^4.1.0:
+=======
+ansi-styles@^4.0.0, ansi-styles@^4.1.0:
+>>>>>>> parent of dedf79c (n update)
 =======
 ansi-styles@^4.0.0, ansi-styles@^4.1.0:
 >>>>>>> parent of dedf79c (n update)
@@ -1671,7 +1675,10 @@ glob-parent@^6.0.2:
     is-glob "^4.0.3"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of dedf79c (n update)
 glob@^10.3.10:
   version "10.4.5"
   resolved "https://registry.npmjs.org/glob/-/glob-10.4.5.tgz"
@@ -2437,7 +2444,11 @@ postcss-value-parser@^4.2.0:
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 postcss@^8.1.0, postcss@^8.4.39, postcss@^8.4.40:
+=======
+postcss@^8.4.23, postcss@^8.4.38, postcss@^8.4.39:
+>>>>>>> parent of dedf79c (n update)
 =======
 postcss@^8.4.23, postcss@^8.4.38, postcss@^8.4.39:
 >>>>>>> parent of dedf79c (n update)
@@ -2849,6 +2860,7 @@ stealthy-require@^1.1.1:
   integrity sha512-ZnWpYnYugiOVEY5GkcuJK1io5V8QmNYChG62gSit9pQVGErXtrKuPC55ITaVSukmMta5qpMU7vqLt2Lnni4f/g==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 string_decoder@~1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz"
@@ -2856,6 +2868,8 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 =======
+=======
+>>>>>>> parent of dedf79c (n update)
 "string-width-cjs@npm:string-width@^4.2.0":
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
@@ -2913,8 +2927,11 @@ string.prototype.trimstart@^1.0.8:
     es-object-atoms "^1.0.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 strip-ansi@^6.0.1:
 =======
+=======
+>>>>>>> parent of dedf79c (n update)
 string_decoder@~1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz"
