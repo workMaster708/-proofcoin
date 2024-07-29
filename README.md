@@ -1,1 +1,1 @@
-main project of TOP FOUNdation
+main project of TOP FOUNDATION
