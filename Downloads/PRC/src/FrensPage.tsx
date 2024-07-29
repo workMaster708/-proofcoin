@@ -35,25 +35,25 @@ const FrensPage: React.FC<FrensPageProps> = ({ handleBack }) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-800 p-4">
-      <h1 className="text-3xl font-bold mb-6 text-white">Frens Page</h1>
-      <div className="flex items-center gap-3 mb-6">
+      <h1 className="text-3xl font-bold mb-4 text-white">Frens Page</h1>
+      <div className="flex items-center gap-2 mb-4">
         <img src={bear} width={40} height={40} alt="bear" />
       </div>
-      <div className="w-full max-w-md bg-gray-700 p-5 rounded-lg mb-6">
+      <div className="w-full max-w-md bg-gray-700 p-4 rounded-lg">
         {referralLink && (
           <div className="flex flex-col items-center mb-4">
-            <p className="text-white text-center mb-3 break-all">{referralLink}</p>
+            <p className="text-white text-center mb-2">{referralLink}</p>
             <button
               onClick={copyToClipboard}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Copy Referral Link
             </button>
           </div>
         )}
       </div>
-      <div className="w-full max-w-md bg-gray-700 p-5 rounded-lg">
-        <h2 className="text-xl font-bold text-white mb-3">People Referred</h2>
+      <div className="w-full max-w-md mt-4 bg-gray-700 p-4 rounded-lg">
+        <h2 className="text-xl font-bold text-white mb-2">People Referred</h2>
         {referrals.length > 0 ? (
           <ul className="list-disc list-inside text-white">
             {referrals.map((referral, index) => (
@@ -66,7 +66,7 @@ const FrensPage: React.FC<FrensPageProps> = ({ handleBack }) => {
       </div>
       <button
         onClick={handleBack}
-        className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+        className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Go Back
       </button>
