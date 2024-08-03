@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import Arrow from './icons/Arrow';
-import { coin, highVoltage, notcoin, rocket, trophy, bear } from './images';
+import { coin, highVoltage, rocket, trophy, bear } from './images';
 import Rank from './Rank';
 import BoostsPage from './BoostsPage';
 import FrensPage from './FrensPage';
@@ -10,8 +10,6 @@ import QRCode from 'qrcode.react'; // Import QRCode component
 
 const App: React.FC = () => {
   const [points, setPoints] = useState<number>(0);
-  const [energy, setEnergy] = useState<number>(500);
-  const [clicks, setClicks] = useState<{ id: number; x: number; y: number }[]>([]);
   const [currentPage, setCurrentPage] = useState<string>('main');
   const [pointsPerTap, setPointsPerTap] = useState<number>(1);
   const [energyLimit, setEnergyLimit] = useState<number>(500);
@@ -24,7 +22,6 @@ const App: React.FC = () => {
         const response = await fetch('/api/users/username'); // replace 'username' with actual username
         const data = await response.json();
         setPoints(data.points);
-        setEnergy(data.energy);
       } catch (error) {
         console.error('Error fetching user data:', error);
       } finally {
@@ -35,41 +32,6 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setEnergy((prevEnergy) => Math.min(prevEnergy + 1, energyLimit));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [energyLimit]);
-
-  const handleTouchClick = useCallback(
-    (e: React.TouchEvent<HTMLDivElement>): void => {
-      e.preventDefault();
-      const rect = e.currentTarget.getBoundingClientRect();
-      Array.from(e.changedTouches).forEach(({ clientX, clientY }) => {
-        handleClick(clientX, clientY, rect);
-      });
-    },
-    [energy, pointsPerTap]
-  );
-
-  const handleClick = (clientX: number, clientY: number, rect: DOMRect): void => {
-    if (energy < pointsPerTap) {
-      return; // Return early if energy is not sufficient for points per tap
-    }
-
-    const x: number = clientX - rect.left;
-    const y: number = clientY - rect.top;
-
-    setPoints((prevPoints) => prevPoints + pointsPerTap);
-    setEnergy((prevEnergy) => prevEnergy - pointsPerTap); // Reduce energy by pointsPerTap
-    setClicks((prevClicks) => [
-      ...prevClicks,
-      { id: Date.now(), x, y },
-    ]);
-  };
-
-  useEffect(() => {
     const updateData = async () => {
       try {
         await fetch('/api/users/username', {
@@ -77,14 +39,14 @@ const App: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ points, energy }),
+          body: JSON.stringify({ points }),
         });
       } catch (error) {
         console.error('Error updating user data:', error);
       }
     };
     updateData();
-  }, [points, energy]);
+  }, [points]);
 
   const handleMenuClick = (page: string) => {
     setCurrentPage(page);
@@ -145,7 +107,7 @@ const App: React.FC = () => {
                 <div className="flex items-center justify-center">
                   <img src={highVoltage} width={44} height={44} alt="High Voltage" />
                   <div className="ml-2 text-left">
-                    <span className="text-white text-2xl font-bold block">{energy}</span>
+                    <span className="text-white text-2xl font-bold block">{points}</span>
                     <span className="text-white text-large opacity-75">/ {energyLimit}</span>
                   </div>
                 </div>
@@ -169,38 +131,14 @@ const App: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full bg-[#f9c035] rounded-full mt-4">
-              <div className="bg-gradient-to-r from-[#f3c45a] to-[#fffad0] h-4 rounded-full" style={{ width: `${(energy / energyLimit) * 100}%` }}></div>
-            </div>
-          </div>
-
-          <div className="flex-grow flex items-center justify-center">
-            <div className="relative mt-4" onTouchStart={handleTouchClick}>
-              <img src={notcoin} width={256} height={256} alt="notcoin" />
-              {clicks.map((click) => (
-                <div
-                  key={click.id}
-                  className="absolute text-5xl font-bold float-animation"
-                  style={{
-                    top: `${click.y - 42}px`,
-                    left: `${click.x - 28}px`,
-                  }}
-                  onAnimationEnd={() => setClicks((prevClicks) => prevClicks.filter((c) => c.id !== click.id))}
-                >
-                  +{pointsPerTap}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       )}
 
       {currentPage === 'boosts' && (
         <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg">
-            Back
-          </button>
           <BoostsPage
+            onBack={handleBack}
             energyExtent={energyLimit}
             setEnergyExtent={setEnergyLimit}
             points={points}
@@ -213,19 +151,21 @@ const App: React.FC = () => {
 
       {currentPage === 'frens' && (
         <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <button onClick={handleBack} className="absolute top-4 left-4 text-white bg-[#2f5a69] py-2 px-4 rounded-lg">
-            Back
-          </button>
-          <FrensPage handleBack={handleBack} />
+          <FrensPage onBack={handleBack} />
           <div className="w-full max-w-xs mt-4">
             <h2 className="text-lg font-bold mb-2">Share Your Referral Link</h2>
             <input
               type="text"
               readOnly
               value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME"
-              className="w-full px-3 py-2 rounded-md bg-gray-700 text-white"
+              className="w-full px-3 py-2 rounded-md bg-gray-800 text-white"
             />
-            <QRCode value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME" />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
+              onClick={() => navigator.clipboard.writeText('http://https://t.me/proofcoin_bot.com/referral?user=USERNAME')}
+            >
+              Copy Referral Link
+            </button>
           </div>
         </div>
       )}
