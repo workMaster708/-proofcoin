@@ -1,52 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
-import Arrow from './icons/Arrow';
-import { coin, highVoltage, rocket, trophy, bear } from './images';
-import Rank from './Rank';
 import BoostsPage from './BoostsPage';
 import FrensPage from './FrensPage';
-import Loader from './Loader'; // Import Loader component
-import QRCode from 'qrcode.react'; // Import QRCode component
+import Loader from './Loader';
+import QRCode from 'qrcode.react';
 
 const App: React.FC = () => {
   const [points, setPoints] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<string>('main');
   const [pointsPerTap, setPointsPerTap] = useState<number>(1);
-  const [energyLimit, setEnergyLimit] = useState<number>(500);
-  const [loading, setLoading] = useState<boolean>(false); // State for loader
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isFarming, setIsFarming] = useState<boolean>(false);
+  const [farmingStartTime, setFarmingStartTime] = useState<number | null>(null);
+  const [farmingPoints, setFarmingPoints] = useState<number>(0);
+
+  const FARMING_DURATION = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Show loader
+      setLoading(true);
       try {
-        const response = await fetch('/api/users/username'); // replace 'username' with actual username
+        const response = await fetch('/api/users/username');
         const data = await response.json();
         setPoints(data.points);
       } catch (error) {
         console.error('Error fetching user data:', error);
       } finally {
-        setLoading(false); // Hide loader
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
   useEffect(() => {
-    const updateData = async () => {
-      try {
-        await fetch('/api/users/username', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ points }),
-        });
-      } catch (error) {
-        console.error('Error updating user data:', error);
-      }
-    };
-    updateData();
-  }, [points]);
+    if (isFarming && farmingStartTime !== null) {
+      const interval = setInterval(() => {
+        const elapsedTime = Date.now() - farmingStartTime;
+        if (elapsedTime >= FARMING_DURATION) {
+          setIsFarming(false);
+          setFarmingPoints(pointsPerTap * (FARMING_DURATION / 1000)); // Points based on duration
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isFarming, farmingStartTime, pointsPerTap]);
+
+  const handleStartFarming = () => {
+    setIsFarming(true);
+    setFarmingStartTime(Date.now());
+    setFarmingPoints(0);
+  };
+
+  const handleClaimFarming = () => {
+    setPoints((prevPoints) => prevPoints + farmingPoints);
+    setFarmingPoints(0);
+  };
 
   const handleMenuClick = (page: string) => {
     setCurrentPage(page);
@@ -87,87 +96,69 @@ const App: React.FC = () => {
             <div className="w-full cursor-pointer">
               <div className="bg-[#2b2d42] text-center py-2 rounded-xl">
                 <p className="text-lg">
-                  Coming soon<Arrow size={18} className="ml-0 mb-1 inline-block" />
+                  Coming soon
                 </p>
               </div>
             </div>
             <div className="mt-12 text-5xl font-bold flex items-center">
-              <img src={coin} width={44} height={44} alt="coin" />
               <span className="ml-2">{points.toLocaleString()}</span>
-            </div>
-            <div className="text-base mt-2 flex items-center">
-              <img src={trophy} width={24} height={24} alt="trophy" />
-              <Rank points={points} />
             </div>
           </div>
 
           <div className="fixed bottom-0 left-0 w-full px-4 pb-4 z-10">
             <div className="w-full flex justify-between gap-2">
-              <div className="w-1/3 flex items-center justify-start max-w-32">
-                <div className="flex items-center justify-center">
-                  <img src={highVoltage} width={44} height={44} alt="High Voltage" />
-                  <div className="ml-2 text-left">
-                    <span className="text-white text-2xl font-bold block">{points}</span>
-                    <span className="text-white text-large opacity-75">/ {energyLimit}</span>
-                  </div>
-                </div>
-              </div>
               <div className="flex-grow flex items-center max-w-60 text-sm">
                 <div className="w-full bg-[#2f5a69] py-4 rounded-2xl flex justify-around">
                   <button className="flex flex-col items-center gap-1" onClick={() => handleMenuClick('frens')}>
-                    <img src={bear} width={24} height={24} alt="bear" />
                     <span>Frens</span>
                   </button>
                   <div className="h-[48px] w-[2px] bg-[#ee9b00]"></div>
                   <button className="flex flex-col items-center gap-1" onClick={() => handleMenuClick('main')}>
-                    <img src={coin} width={24} height={24} alt="coin" />
                     <span>Earn</span>
                   </button>
                   <div className="h-[48px] w-[2px] bg-[#ee9b00]"></div>
                   <button className="flex flex-col items-center gap-1" onClick={() => handleMenuClick('boosts')}>
-                    <img src={rocket} width={24} height={24} alt="rocket" />
                     <span>Boosts</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="flex-grow flex items-center justify-center">
+            {!isFarming ? (
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleStartFarming}
+              >
+                Start Farming
+              </button>
+            ) : (
+              <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleClaimFarming}
+              >
+                Claim {farmingPoints} Points
+              </button>
+            )}
+          </div>
         </div>
       )}
 
       {currentPage === 'boosts' && (
-        <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <BoostsPage
-            onBack={handleBack}
-            energyExtent={energyLimit}
-            setEnergyExtent={setEnergyLimit}
-            points={points}
-            setPoints={setPoints}
-            setPointsPerTap={setPointsPerTap}
-            pointsPerTap={pointsPerTap}
-          />
-        </div>
+        <BoostsPage
+          onBack={handleBack}
+          energyExtent={0}
+          setEnergyExtent={() => {}}
+          points={points}
+          setPoints={setPoints}
+          setPointsPerTap={setPointsPerTap}
+          pointsPerTap={pointsPerTap}
+        />
       )}
 
       {currentPage === 'frens' && (
-        <div className="w-full z-10 min-h-screen flex flex-col items-center text-white">
-          <FrensPage onBack={handleBack} />
-          <div className="w-full max-w-xs mt-4">
-            <h2 className="text-lg font-bold mb-2">Share Your Referral Link</h2>
-            <input
-              type="text"
-              readOnly
-              value="http://https://t.me/proofcoin_bot.com/referral?user=USERNAME"
-              className="w-full px-3 py-2 rounded-md bg-gray-800 text-white"
-            />
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
-              onClick={() => navigator.clipboard.writeText('http://https://t.me/proofcoin_bot.com/referral?user=USERNAME')}
-            >
-              Copy Referral Link
-            </button>
-          </div>
-        </div>
+        <FrensPage onBack={handleBack} />
       )}
     </div>
   );
