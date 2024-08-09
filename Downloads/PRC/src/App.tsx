@@ -79,7 +79,7 @@ const App: React.FC = () => {
         <strong>Note:</strong> The game is currently updating. Please check back shortly.
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <h1>$Proofcoin Farming Game</h1>
+        <h1>$Proofcoin Farming</h1>
         <p>coins: {points}</p>
         {isCooldown ? (
           <button disabled>{`Cooldown: ${getCooldownTime()}`}</button>
