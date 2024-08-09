@@ -8,6 +8,7 @@ const App: React.FC = () => {
   const [lastFarmingTime, setLastFarmingTime] = useState<number | null>(null);
   const [isCooldown, setIsCooldown] = useState<boolean>(false);
   const [canClaim, setCanClaim] = useState<boolean>(false);
+  const [remainingTime, setRemainingTime] = useState<number>(0);
 
   useEffect(() => {
     const checkCooldown = () => {
@@ -16,11 +17,22 @@ const App: React.FC = () => {
         const elapsed = now - lastFarmingTime;
         if (elapsed < COOLDOWN_DURATION) {
           setIsCooldown(true);
-          const remainingTime = COOLDOWN_DURATION - elapsed;
-          setTimeout(() => {
-            setIsCooldown(false);
-            setCanClaim(true);
-          }, remainingTime);
+          const remaining = COOLDOWN_DURATION - elapsed;
+          setRemainingTime(remaining);
+          const intervalId = setInterval(() => {
+            const now = new Date().getTime();
+            const elapsed = now - lastFarmingTime!;
+            const remaining = COOLDOWN_DURATION - elapsed;
+            if (remaining <= 0) {
+              clearInterval(intervalId);
+              setIsCooldown(false);
+              setCanClaim(true);
+              setRemainingTime(0);
+            } else {
+              setRemainingTime(remaining);
+            }
+          }, 1000); // Update every second
+          return () => clearInterval(intervalId);
         } else {
           setIsCooldown(false);
           setCanClaim(true);
@@ -58,13 +70,7 @@ const App: React.FC = () => {
   };
 
   const getCooldownTime = () => {
-    if (lastFarmingTime) {
-      const now = new Date().getTime();
-      const elapsed = now - lastFarmingTime;
-      const remainingTime = COOLDOWN_DURATION - elapsed;
-      return formatTime(remainingTime);
-    }
-    return 'Ready to farm';
+    return formatTime(remainingTime);
   };
 
   return (
@@ -73,8 +79,8 @@ const App: React.FC = () => {
         <strong>Note:</strong> The game is currently updating. Please check back shortly.
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <h1>Point Farming Game</h1>
-        <p>Points: {points}</p>
+        <h1>$Proofcoin Farming Game</h1>
+        <p>coins: {points}</p>
         {isCooldown ? (
           <button disabled>{`Cooldown: ${getCooldownTime()}`}</button>
         ) : canClaim ? (
